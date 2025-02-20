@@ -1,0 +1,74 @@
+#include <stdio.h>
+#define MAX_STUDENTS 50
+#define MAX_SUBJECTS 10
+
+void calculateTotalMarks(int marks[][MAX_SUBJECTS], int n, int m, int totalMarks[]) {
+    for(int i = 0; i < n; i++) {
+        totalMarks[i] = 0;
+        for(int j = 0; j < m; j++) {
+            totalMarks[i] += marks[i][j];
+        }
+    }
+}
+
+void sortStudents(int totalMarks[], int studentIndex[], int n) {
+    for(int i = 0; i < n-1; i++) {
+        for(int j = 0; j < n-i-1; j++) {
+            if(totalMarks[j] < totalMarks[j+1]) {
+   
+                int tempMarks = totalMarks[j];
+                totalMarks[j] = totalMarks[j+1];
+                totalMarks[j+1] = tempMarks;
+                
+            
+                int tempIndex = studentIndex[j];
+                studentIndex[j] = studentIndex[j+1];
+                studentIndex[j+1] = tempIndex;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    int marks[MAX_STUDENTS][MAX_SUBJECTS];
+    int totalMarks[MAX_STUDENTS];
+    int studentIndex[MAX_STUDENTS];
+    
+
+    printf("Enter number of students: ");
+    scanf("%d", &n);
+    
+    printf("Enter number of subjects: ");
+    scanf("%d", &m);
+    
+
+    if(n > MAX_STUDENTS || m > MAX_SUBJECTS) {
+        printf("Error: Exceeded maximum limit\n");
+        return 1;
+    }
+
+    printf("Enter marks:\n");
+    for(int i = 0; i < n; i++) {
+        printf("Student %d: ", i+1);
+        for(int j = 0; j < m; j++) {
+            scanf("%d", &marks[i][j]);
+        }
+        studentIndex[i] = i; 
+    }
+    
+
+    calculateTotalMarks(marks, n, m, totalMarks);
+    
+
+    sortStudents(totalMarks, studentIndex, n);
+    
+
+    printf("\nSorted by Total Marks (Descending):\n");
+    for(int i = 0; i < n; i++) {
+        printf("Student %d: Total Marks = %d\n", 
+               studentIndex[i] + 1, totalMarks[i]);
+    }
+    
+    return 0;
+}
