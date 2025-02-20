@@ -4,7 +4,7 @@
 float calculateBill(char wardType, int days) {
     float baseCharge = 0;
     
-    // Determine base charge based on ward type
+   
     switch(wardType) {
         case 'G':
         case 'g':
@@ -23,7 +23,7 @@ float calculateBill(char wardType, int days) {
             return 0;
     }
     
-    // Calculate total bill
+ 
     float totalBill = baseCharge * days;
     
     // Apply discount if stay is more than 7 days
